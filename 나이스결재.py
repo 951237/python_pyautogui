@@ -83,7 +83,7 @@ clickIwant(결재정보_돋보기)
 print('정보 단위과제 선택....')
 waitWindow(880,244,44,133,191)  # 과제선택창 기다리기
 
-# 과제단위창 찾기
+# todo 과제단위창 찾기 / 창 위치를 클릭하기
 스크립트창 = '.exe'
 pos_py =findWindow(스크립트창)
 getPosition(pos_py)
