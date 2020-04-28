@@ -25,10 +25,11 @@ def waitWindow(p_x, p_y, p_r, p_g, p_b):
         time.sleep(1)
 
 #윈도우 창찾기
-def findWindow():
+
+def findWindow(윈도우이름):
     all = pa.getWindows()
     for i in all:
-        if 'https://klef.goe.go.kr/?USERID=driver' in i:
+        if 윈도우이름 in i:
             r_window = i
             print('결재창 여부 확인~')
         else:
@@ -53,7 +54,8 @@ waitWindow(700,200,44,133,191) # 앞의 700, 200은 x, y 위치값 / 뒤의 44, 
 
 #창의 색깔이 바뀜
 print('결재정보를 찾는 중...')
-p_win = findWindow()
+결재창 = 'https://klef.goe.go.kr/?USERID=driver'
+p_win = findWindow(결재창)
 r_region = getPosition(p_win)
 
 print('창의 좌표 : %s' %(str(r_region)))
@@ -79,7 +81,13 @@ print('돋보기 선택....')
 결재정보_돋보기 = [775,249]
 clickIwant(결재정보_돋보기)
 print('정보 단위과제 선택....')
-print('''
+waitWindow(880,244,44,133,191)  # 과제선택창 기다리기
+time.sleep(2)
+pa.hotkey('alt', 'tab')
+pa.hotkey('alt', 'tab')
+
+# 과제목록 출력
+print('''      
 1. 과제카드_과학교과
 2. 과제카드_정보교과
 3. 과제카드_개인정보
@@ -90,6 +98,7 @@ print('''
 8. 과제카드_연수관리
 9. 과제카드_교육과정
 ''')
+
 select = int(input('선택할 단위과제는? : '))
 pa.hotkey('alt', 'tab')
 
