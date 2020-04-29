@@ -25,11 +25,10 @@ def waitWindow(p_x, p_y, p_r, p_g, p_b):
         time.sleep(1)
 
 #윈도우 창찾기
-
-def findWindow(윈도우이름):
+def findWindow():
     all = pa.getWindows()
     for i in all:
-        if 윈도우이름 in i:
+        if 'https://klef.goe.go.kr/?USERID=driver' in i:
             r_window = i
             print('결재창 여부 확인~')
         else:
@@ -49,13 +48,17 @@ def imgSearchClick(p_imgName):
     imgLocationX, imgLocationY = pa.center(v_imgLocation)
     pa.click(imgLocationX, imgLocationY, interval=0.5, pause=0.5)
 
+def clickIwant(좌표):
+    pa.click(leftX + 좌표[0],leftY + 좌표[1],clicks=1,interval=0.25)
+    print('딸깍!')
+    time.sleep(0.75)
+
 print('결재창 찾는중...')
 waitWindow(700,200,44,133,191) # 앞의 700, 200은 x, y 위치값 / 뒤의 44, 133, 191은 rgb값임
 
 #창의 색깔이 바뀜
 print('결재정보를 찾는 중...')
-결재창 = 'https://klef.goe.go.kr/?USERID=driver'
-p_win = findWindow(결재창)
+p_win = findWindow()
 r_region = getPosition(p_win)
 
 print('창의 좌표 : %s' %(str(r_region)))
@@ -63,39 +66,62 @@ print('창의 좌표 : %s' %(str(r_region)))
 #창의 좌측 상단의 X좌표와 Y좌표를 변수로 지정
 leftX, leftY = r_region[0:2]
 
-def clickIwant(좌표):
-    pa.click(leftX + 좌표[0],leftY + 좌표[1],clicks=1,interval=0.25)
-    print('딸깍!')
-    time.sleep(0.75)
-
-# 결재정보 선택 - todo 색을 인식하여 클릭하기
 print('결재정보 선택... ')
 결재정보 = [57,122]
 clickIwant(결재정보)
 
-# todo 공람 여부 물어보기
+# 스크립트 창 바꿈
+clickIwant(윈도우_스크립트)
 
-#창의 색이 바뀜
+# 공람 여부 물어보기
+print(
+    '''
+    1. 공람하겠습니다. 
+    2. 공람하지 않습니다.
+    '''
+)
+v_share = int(input('공람하시겠습니까?(1, 2) : '))
+결재정보_공람 = [143, 529]
+결재정보_공람지정 = [823, 559]
+공람_학현초 = [76, 447]
+공람_화살표 = [449, 408]
+공람_확인 = [833, 221]
+윈도우_결재 = [706,682]
+윈도우_스크립트 = [442,148]
+
+# 결재창으로 바꾸기
+clickIwant(윈도우_결재)
+
+# 공람여부 처리하기
+if v_share == 1:
+    clickIwant(결재정보_공람)
+    clickIwant(결재정보_공람지정)
+    time.sleep(1.5)
+    clickIwant(공람_학현초)
+    clickIwant(공람_화살표)
+    clickIwant(공람_확인)
+    pa.hotkey('enter')
+    time.sleep(1)
+else:
+    pass
+
+#단위과제 선택하기
 print('과제카드 찾는 중....')
 print('돋보기 선택....')
-결재정보_돋보기 = [775,249]
+결재정보_돋보기 = [780,249]
 clickIwant(결재정보_돋보기)
 print('정보 단위과제 선택....')
-waitWindow(880,244,44,133,191)  # 과제선택창 기다리기
 
-# todo 과제단위창 찾기 / 창 위치를 클릭하기
-스크립트창 = '.exe'
-pos_py =findWindow(스크립트창)
-getPosition(pos_py)
+# 단위과제 창 찾기
+print('문서처리창 기다리는 중....')
+waitWindow(702,238,44,133,191)
+time.sleep(1)
 
+# 스크립트 창 바꿈
+clickIwant(윈도우_스크립트)
 
-
-time.sleep(2)
-pa.hotkey('alt', 'tab')
-pa.hotkey('alt', 'tab')
-
-# 과제목록 출력
-print('''      
+# 단위과제 출력
+print('''
 1. 과제카드_과학교과
 2. 과제카드_정보교과
 3. 과제카드_개인정보
@@ -106,9 +132,10 @@ print('''
 8. 과제카드_연수관리
 9. 과제카드_교육과정
 ''')
-
 select = int(input('선택할 단위과제는? : '))
-pa.hotkey('alt', 'tab')
+
+# 결재창으로 바꾸기
+clickIwant(윈도우_결재)
 
 if select == 1:
     과제카드 = [200,475] # 과학교과
@@ -141,18 +168,17 @@ print('문서처리 선택....')
 문서처리 = [420, 80]
 clickIwant(문서처리)
 
+# 문서처리창 기다리기
 print('문서처리창 기다리는 중....')
-
 waitWindow(800,310,44,133,191)
 time.sleep(3)
+
+# 문서처리창 확인 클릭하기
 print('확인 클릭....')
 문서처리_확인 = [770, 230]
 clickIwant(문서처리_확인)
 for i in range(2):
-    time.sleep(2)
+    time.sleep(4)
     pa.hotkey('enter')
 
 print('결재 완료')
-
-
-
