@@ -6,6 +6,9 @@ import time
 import re
 
 
+윈도우_결재 = [1322,910]
+윈도우_파이선 = [442,148]
+
 pa.FAILSAFE = True
 
 #스크린샷
@@ -71,7 +74,8 @@ print('결재정보 선택... ')
 clickIwant(결재정보)
 
 # 스크립트 창 바꿈
-clickIwant(윈도우_스크립트)
+pa.click(윈도우_파이선)
+# clickIwant(윈도우_파이선)
 
 # 공람 여부 물어보기
 print(
@@ -81,24 +85,28 @@ print(
     '''
 )
 v_share = int(input('공람하시겠습니까?(1, 2) : '))
+
+# 결재창으로 바꾸기
+pa.click(윈도우_결재)
+
 결재정보_공람 = [143, 529]
-결재정보_공람지정 = [823, 559]
+결재정보_공람지정 = [823, 493]
 공람_학현초 = [76, 447]
 공람_화살표 = [449, 408]
 공람_확인 = [833, 221]
-윈도우_결재 = [706,682]
-윈도우_스크립트 = [442,148]
-
-# 결재창으로 바꾸기
-clickIwant(윈도우_결재)
 
 # 공람여부 처리하기
 if v_share == 1:
+    print('공람 클릭!')
     clickIwant(결재정보_공람)
+    print('공람지정 클릭!')
     clickIwant(결재정보_공람지정)
     time.sleep(1.5)
+    print('학현초 전체선택 클릭!')
     clickIwant(공람_학현초)
+    print('화살표 클릭!')
     clickIwant(공람_화살표)
+    print('공람 확인 클릭!')
     clickIwant(공람_확인)
     pa.hotkey('enter')
     time.sleep(1)
@@ -118,7 +126,7 @@ waitWindow(702,238,44,133,191)
 time.sleep(1)
 
 # 스크립트 창 바꿈
-clickIwant(윈도우_스크립트)
+clickIwant(윈도우_파이선)
 
 # 단위과제 출력
 print('''
