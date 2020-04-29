@@ -8,29 +8,6 @@ import re
 
 pa.FAILSAFE = True
 
-def screenGrab():
-    box = (x_pad + 1, y_pad + 1, x_pad + 439, y_pad + 659)
-    im = IG.grab(box)
-    im.save(os.getcwd() + '\\img\\Snap__' + str(int(time.time())) + '.png', 'PNG')
-    return im
-
-class 좌표:
-    결재정보 = (57, 122)
-
-def 버튼_군청색():
-    im = screenGrab()
-    color = im.getpixel(좌표.결재정보)
-    if color == (45, 62, 80):
-        print('ok')
-        return True
-    return False
-
-버튼_군청색()
-
-
-
-
-
 #스크린샷
 def screenGrab():
     box = ()
@@ -71,6 +48,11 @@ def imgSearchClick(p_imgName):
     imgLocationX, imgLocationY = pa.center(v_imgLocation)
     pa.click(imgLocationX, imgLocationY, interval=0.5, pause=0.5)
 
+def clickIwant(좌표):
+    pa.click(leftX + 좌표[0],leftY + 좌표[1],clicks=1,interval=0.25)
+    print('딸깍!')
+    time.sleep(0.75)
+
 print('결재창 찾는중...')
 waitWindow(700,200,44,133,191) # 앞의 700, 200은 x, y 위치값 / 뒤의 44, 133, 191은 rgb값임
 
@@ -84,19 +66,14 @@ print('창의 좌표 : %s' %(str(r_region)))
 #창의 좌측 상단의 X좌표와 Y좌표를 변수로 지정
 leftX, leftY = r_region[0:2]
 
-def clickIwant(좌표):
-    pa.click(leftX + 좌표[0],leftY + 좌표[1],clicks=1,interval=0.25)
-    print('딸깍!')
-    time.sleep(0.75)
-
 print('결재정보 선택... ')
 결재정보 = [57,122]
 clickIwant(결재정보)
 
 # 스크립트 창 바꿈
-pa.hotkey('alt', 'tab')
+clickIwant(윈도우_스크립트)
 
-# todo 공람 여부 물어보기
+# 공람 여부 물어보기
 print(
     '''
     1. 공람하겠습니다. 
@@ -109,38 +86,41 @@ v_share = int(input('공람하시겠습니까?(1, 2) : '))
 공람_학현초 = [76, 447]
 공람_화살표 = [449, 408]
 공람_확인 = [833, 221]
-창바꾸기 = [706,682]
-
-
+윈도우_결재 = [706,682]
+윈도우_스크립트 = [442,148]
 
 # 결재창으로 바꾸기
-clickIwant(창바꾸기)
+clickIwant(윈도우_결재)
 
-#조건 - 만약 공람을 한다면
-    # 공람지정 클릭
-    # 학현초 츨릭
-    # 화살표 클릭
-    # 확인
+# 공람여부 처리하기
 if v_share == 1:
     clickIwant(결재정보_공람)
     clickIwant(결재정보_공람지정)
-    time.sleep(3)
+    time.sleep(1.5)
     clickIwant(공람_학현초)
     clickIwant(공람_화살표)
     clickIwant(공람_확인)
     pa.hotkey('enter')
+    time.sleep(1)
 else:
     pass
 
-#창의 색이 바뀜
+#단위과제 선택하기
 print('과제카드 찾는 중....')
 print('돋보기 선택....')
-결재정보_돋보기 = [775,249]
+결재정보_돋보기 = [780,249]
 clickIwant(결재정보_돋보기)
 print('정보 단위과제 선택....')
 
+# 단위과제 창 찾기
+print('문서처리창 기다리는 중....')
+waitWindow(702,238,44,133,191)
+time.sleep(1)
+
 # 스크립트 창 바꿈
-pa.hotkey('alt', 'tab')
+clickIwant(윈도우_스크립트)
+
+# 단위과제 출력
 print('''
 1. 과제카드_과학교과
 2. 과제카드_정보교과
@@ -154,9 +134,8 @@ print('''
 ''')
 select = int(input('선택할 단위과제는? : '))
 
-
 # 결재창으로 바꾸기
-clickIwant(창바꾸기)
+clickIwant(윈도우_결재)
 
 if select == 1:
     과제카드 = [200,475] # 과학교과
@@ -189,10 +168,12 @@ print('문서처리 선택....')
 문서처리 = [420, 80]
 clickIwant(문서처리)
 
+# 문서처리창 기다리기
 print('문서처리창 기다리는 중....')
-
 waitWindow(800,310,44,133,191)
 time.sleep(3)
+
+# 문서처리창 확인 클릭하기
 print('확인 클릭....')
 문서처리_확인 = [770, 230]
 clickIwant(문서처리_확인)
