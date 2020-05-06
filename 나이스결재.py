@@ -53,6 +53,11 @@ def clickIwant(좌표):
     print('딸깍!')
     time.sleep(0.75)
 
+def clickIwant_global(좌표):
+    pa.click(좌표[0],좌표[1],clicks=1,interval=0.25)
+    print('딸깍!')
+    time.sleep(0.75)
+
 print('결재창 찾는중...')
 waitWindow(700,200,44,133,191) # 앞의 700, 200은 x, y 위치값 / 뒤의 44, 133, 191은 rgb값임
 
@@ -83,8 +88,8 @@ waitWindow(702,238,44,133,191)
 time.sleep(1)
 
 # 스크립트 창 바꿈
-윈도우_스크립트 = [442,148]
-clickIwant(윈도우_스크립트)
+윈도우_스크립트 = [390,300]
+clickIwant_global(윈도우_스크립트)
 
 # 단위과제 출력
 print('''
@@ -102,7 +107,7 @@ select = int(input('선택할 단위과제는? : '))
 
 # 결재창으로 바꾸기
 윈도우_결재 = [1258,722]
-clickIwant(윈도우_결재)
+clickIwant_global(윈도우_결재)
 
 if select == 1:
     과제카드 = [200,475] # 과학교과
