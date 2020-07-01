@@ -10,8 +10,9 @@ from selenium.webdriver.common.keys import Keys
 url = 'http://neis.goe.go.kr/'
 
 # 함수 - bs4로 html 가져오기
-driver = webdriver.Ie()
+driver = webdriver.Ie('C:/Users/User/Documents/coding_python/python_pyAutogui/neis_login/IEDriverServer.exe')
 print('사이트에 접속중..')
+driver.implicitly_wait(10)
 driver.get(url)
 
 try:
@@ -25,6 +26,8 @@ try:
     driver.find_element_by_xpath('//*[@id="login_input_area"]/input[2]').send_keys(Keys.ENTER)
 
     print('인증서 선택 - 이동식 디스크')
+    driver.implicitly_wait(10)
+    driver.find_element_by_xpath('//*[@id="kc_cert_position"]/tbody/tr[2]/td[2]/button').click()
     driver.find_element_by_xpath('//*[@id="kc_cert_position"]/tbody/tr[2]/td[2]/button').click()
     driver.implicitly_wait(10)
     driver.find_element_by_xpath('//*[@id="kc_cert_position"]/tbody/tr[2]/td[2]/ul/li[1]/a').click()
