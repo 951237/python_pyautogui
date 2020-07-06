@@ -48,24 +48,18 @@ def imgSearchClick(p_imgName):
     imgLocationX, imgLocationY = pa.center(v_imgLocation)
     pa.click(imgLocationX, imgLocationY, interval=0.5, pause=0.5)
 
-# 결재창내에서 위치 클릭하기
 def clickIwant(좌표):
     pa.click(leftX + 좌표[0],leftY + 좌표[1],clicks=1,interval=0.25)
     print('딸깍!')
     time.sleep(0.75)
 
-# 전체화면에서 원하는 위치 클릭하기
 def clickIwant_global(좌표):
     pa.click(좌표[0],좌표[1],clicks=1,interval=0.25)
     print('딸깍!')
     time.sleep(0.75)
 
-# 터미널 창에서 결재창으로 바꾸기
-pa.hotkey("alt", "tab")
-
 print('결재창 찾는중...')
 waitWindow(700,200,44,133,191) # 앞의 700, 200은 x, y 위치값 / 뒤의 44, 133, 191은 rgb값임
-
 
 #창의 색깔이 바뀜
 print('결재정보를 찾는 중...')
