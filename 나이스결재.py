@@ -58,6 +58,8 @@ def clickIwant_global(좌표):
     print('딸깍!')
     time.sleep(0.75)
 
+pa.hotkey('alt', 'tab')
+
 print('결재창 찾는중...')
 waitWindow(700,200,44,133,191) # 앞의 700, 200은 x, y 위치값 / 뒤의 44, 133, 191은 rgb값임
 
