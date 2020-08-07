@@ -25,10 +25,10 @@ def waitWindow(p_x, p_y, p_r, p_g, p_b):
         time.sleep(1)
 
 #윈도우 창찾기
-def findWindow():
+def findWindow(p_win):
     all = pa.getWindows()
     for i in all:
-        if 'https://klef.goe.go.kr/?USERID=driver' in i:
+        if p_win in i:
             r_window = i
             print('결재창 여부 확인~')
         else:
@@ -58,6 +58,12 @@ def clickIwant_global(좌표):
     print('딸깍!')
     time.sleep(0.75)
 
+WIN_결재정보 = 'https://klef.goe.go.kr/?USERID=driver'
+WIN_과제카드 = 'K-에듀파인 -- 웹 페이지 대화 상자'
+WIN_문서처리 = 'https://klef.goe.go.kr/ - 문서처리'
+
+
+# 터미널 창에서 결재창으로 전환하기
 pa.hotkey('alt', 'tab')
 
 print('결재창 찾는중...')
@@ -65,7 +71,7 @@ waitWindow(700,200,44,133,191) # 앞의 700, 200은 x, y 위치값 / 뒤의 44, 
 
 #창의 색깔이 바뀜
 print('결재정보를 찾는 중...')
-p_win = findWindow()
+p_win = findWindow(WIN_결재정보)
 r_region = getPosition(p_win)
 
 print('창의 좌표 : %s' %(str(r_region)))
@@ -86,7 +92,8 @@ print('정보 단위과제 선택....')
 
 # 단위과제 창 찾기
 print('문서처리창 기다리는 중....')
-waitWindow(702,238,44,133,191)
+findWindow(WIN_과제카드)
+# waitWindow(702,238,44,133,191)
 time.sleep(1)
 
 # 스크립트 창 바꿈
@@ -102,8 +109,6 @@ print('''
 5. 과제카드_보안관리
 6. 과제카드_홈페이지
 7. 과제카드_안전공제
-8. 과제카드_연수관리
-9. 과제카드_교육과정
 ''')
 select = int(input('선택할 단위과제는? : '))
 
@@ -112,23 +117,23 @@ select = int(input('선택할 단위과제는? : '))
 clickIwant_global(윈도우_결재)
 
 if select == 1:
-    과제카드 = [200,475] # 과학교과
+    과제카드 = [200,437] # 과학교과
 elif select == 2:
-    과제카드 = [200,450] # 정보교과
+    과제카드 = [200,410] # 정보교과
 elif select == 3:
-    과제카드 = [200,325] # 개인정보
+    과제카드 = [200,284] # 개인정보
 elif select == 4:
-    과제카드 = [200,400] # 정보기기관리
+    과제카드 = [200,360] # 정보기기관리
 elif select == 5:
-    과제카드 = [200,350] # 보안관리
+    과제카드 = [200,310] # 보안관리
 elif select == 6:
-    과제카드 = [200,375] # 홈페이지
+    과제카드 = [200,335] # 홈페이지
 elif select == 7:
-    과제카드 = [200,425] # 안전공제
+    과제카드 = [200,385] # 안전공제
 elif select == 8:
-    과제카드 = [200,500] # 연수관리
+    과제카드 = [200,460] # 연수관리
 elif select == 9:
-    과제카드 = [200,525] # 교육과정
+    과제카드 = [200,485] # 교육과정
 
 time.sleep(1)
 clickIwant(과제카드)
@@ -144,7 +149,8 @@ clickIwant(문서처리)
 
 # 문서처리창 기다리기
 print('문서처리창 기다리는 중....')
-waitWindow(800,310,44,133,191)
+findWindow(WIN_문서처리)
+# waitWindow(800,310,44,133,191)
 time.sleep(3)
 
 # 문서처리창 확인 클릭하기
