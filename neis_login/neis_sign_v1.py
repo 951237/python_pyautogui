@@ -1,18 +1,9 @@
-from PIL import ImageGrab as IG
 import pyautogui as pa
-import sys
-import os
 import time
-import re
 
 
 pa.FAILSAFE = True
 
-#스크린샷
-def screenGrab():
-    box = ()
-    im = IG.grab(box)
-    im.save(os.getcwd() + '\\img\\full_snap__' + str(int(time.time())) + '.png', 'PNG')
 
 def waitWindow(p_x, p_y, p_r, p_g, p_b):
     i = 1
@@ -49,8 +40,10 @@ def imgSearchClick(p_imgName):
     pa.click(imgLocationX, imgLocationY, interval=0.5, pause=0.5)
 
 def clickIwant(좌표):
-    pa.click(leftX + 좌표[0],leftY + 좌표[1],clicks=1,interval=0.25)
-    print('딸깍!')
+    x = leftX + 좌표[0]
+    y = leftY + 좌표[1]
+    pa.click(x,y,clicks=1,interval=0.25)
+    print(f'x좌표 : {x}, y좌표 : {y} 클릭!')
     time.sleep(0.75)
 
 def clickIwant_global(좌표):
@@ -108,7 +101,7 @@ print('''
 select = int(input('선택할 단위과제는? : '))
 
 # 결재창으로 바꾸기
-윈도우_결재 = [1258,722]
+윈도우_결재 = [1322,276]
 clickIwant_global(윈도우_결재)
 
 if select == 1:
