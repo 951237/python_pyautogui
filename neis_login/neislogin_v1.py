@@ -10,7 +10,7 @@ from selenium.webdriver.common.keys import Keys
 url = 'http://neis.goe.go.kr/'
 
 # 함수 - bs4로 html 가져오기
-driver = webdriver.Ie('C:/Users/User/Documents/coding_python/python_pyAutogui/neis_login/IEDriverServer.exe')
+driver = webdriver.Ie('C:\\Users\\User\\Documents\\coding_python\\pyautogui\\neis_login\\IEDriverServer.exe')
 print('사이트에 접속중..')
 driver.implicitly_wait(10)
 driver.get(url)
